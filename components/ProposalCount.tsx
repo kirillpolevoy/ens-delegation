@@ -1,16 +1,22 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useActiveProposals } from '@/hooks/useActiveProposals';
 import { Vote } from 'lucide-react';
 
 export function ProposalCount() {
+  const [mounted, setMounted] = useState(false);
   const { count, isLoading, error } = useActiveProposals();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <motion.div
       className="glass-card p-6"
-      initial={{ opacity: 0, y: 20 }}
+      initial={mounted ? { opacity: 0, y: 20 } : false}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.4 }}
     >
@@ -25,7 +31,7 @@ export function ProposalCount() {
             <span className="text-gray-500 text-sm">{error}</span>
           ) : (
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
+              initial={mounted ? { scale: 0.8, opacity: 0 } : false}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: 'spring', stiffness: 200 }}
             >

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useAccount, useBalance, useReadContract } from 'wagmi';
 import { useENSBalance } from '@/hooks/useENSBalance';
 import { ensTokenConfig } from '@/lib/contracts/ens';
@@ -8,6 +9,7 @@ import { Wallet, CheckCircle, XCircle } from 'lucide-react';
 import { formatEther } from 'viem';
 
 export function WalletInfo() {
+  const [mounted, setMounted] = useState(false);
   const { address } = useAccount();
   const { formatted: ensBalance, isLoading: ensLoading } = useENSBalance(address);
   const { data: ethBalance, isLoading: ethLoading } = useBalance({ address });
@@ -21,6 +23,10 @@ export function WalletInfo() {
     },
   });
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   if (!address) return null;
 
   const isDelegated = delegateAddress && delegateAddress !== '0x0000000000000000000000000000000000000000';
@@ -33,7 +39,7 @@ export function WalletInfo() {
       {/* ENS Balance */}
       <motion.div
         className="glass-card p-6"
-        initial={{ opacity: 0, y: 20 }}
+        initial={mounted ? { opacity: 0, y: 20 } : false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
       >
@@ -44,7 +50,7 @@ export function WalletInfo() {
           ) : (
             <motion.span
               className="text-2xl font-bold text-ens-blue"
-              initial={{ opacity: 0, scale: 0.5 }}
+              initial={mounted ? { opacity: 0, scale: 0.5 } : false}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ type: 'spring', stiffness: 200 }}
             >
@@ -57,7 +63,7 @@ export function WalletInfo() {
       {/* Delegation Status */}
       <motion.div
         className="glass-card p-6"
-        initial={{ opacity: 0, y: 20 }}
+        initial={mounted ? { opacity: 0, y: 20 } : false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
@@ -91,7 +97,7 @@ export function WalletInfo() {
       {/* ETH Balance */}
       <motion.div
         className="glass-card p-6"
-        initial={{ opacity: 0, y: 20 }}
+        initial={mounted ? { opacity: 0, y: 20 } : false}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
       >

@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useAccount } from 'wagmi';
 import { WalletInfo } from '../WalletInfo';
@@ -13,9 +14,14 @@ interface Step1ConnectProps {
 }
 
 export function Step1Connect({ onContinue }: Step1ConnectProps) {
+  const [mounted, setMounted] = useState(false);
   const { address, isConnected } = useAccount();
   const { balance: ensBalance } = useENSBalance(address);
   const { data: ethBalance } = useBalance({ address });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const hasENS = ensBalance > BigInt(0);
   const hasSufficientGas = ethBalance ? ethBalance.value > BigInt(0.001 * 10 ** 18) : false;
@@ -23,7 +29,7 @@ export function Step1Connect({ onContinue }: Step1ConnectProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
+      initial={mounted ? { opacity: 0, x: 50 } : false}
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: -50 }}
       className="space-y-8"
@@ -48,7 +54,7 @@ export function Step1Connect({ onContinue }: Step1ConnectProps) {
         ) : (
           <motion.div
             className="w-full space-y-6"
-            initial={{ opacity: 0 }}
+            initial={mounted ? { opacity: 0 } : false}
             animate={{ opacity: 1 }}
           >
             <WalletInfo />
@@ -57,7 +63,7 @@ export function Step1Connect({ onContinue }: Step1ConnectProps) {
             {!hasENS && (
               <motion.div
                 className="glass-card p-4 border-red-500/50"
-                initial={{ opacity: 0, y: 10 }}
+                initial={mounted ? { opacity: 0, y: 10 } : false}
                 animate={{ opacity: 1, y: 0 }}
               >
                 <p className="text-red-400 text-center">
@@ -69,7 +75,7 @@ export function Step1Connect({ onContinue }: Step1ConnectProps) {
             {!hasSufficientGas && hasENS && (
               <motion.div
                 className="glass-card p-4 border-yellow-500/50"
-                initial={{ opacity: 0, y: 10 }}
+                initial={mounted ? { opacity: 0, y: 10 } : false}
                 animate={{ opacity: 1, y: 0 }}
               >
                 <p className="text-yellow-400 text-center">
