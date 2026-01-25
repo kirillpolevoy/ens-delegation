@@ -1,16 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 @layer base {
   body {
-    @apply bg-gray-950 text-white;
+    background-color: #030712;
+    color: white;
   }
 }
 
 @layer utilities {
   .glass-card {
-    @apply bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl;
+    background-color: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(24px);
+    border: 1px solid rgb(31, 41, 55);
+    border-radius: 1rem;
   }
 
   .magic-gradient {
