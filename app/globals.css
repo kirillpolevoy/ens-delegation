@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-950 text-white;
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-gray-900/50 backdrop-blur-xl border border-gray-800 rounded-2xl;
+  }
+
+  .magic-gradient {
+    background: linear-gradient(
+      135deg,
+      rgba(82, 152, 255, 0.1) 0%,
+      rgba(147, 51, 234, 0.1) 50%,
+      rgba(82, 152, 255, 0.1) 100%
+    );
+    background-size: 200% 200%;
+    animation: gradient-shift 10s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+}
