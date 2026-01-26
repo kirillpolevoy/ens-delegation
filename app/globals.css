@@ -1,33 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @layer base {
   body {
-    background-color: #030712;
+    background-color: #0a0e1a;
     color: white;
+    font-family: 'Epilogue', -apple-system, BlinkMacSystemFont, sans-serif;
   }
 }
 
 @layer utilities {
   .glass-card {
-    background-color: rgba(17, 24, 39, 0.5);
-    backdrop-filter: blur(24px);
-    border: 1px solid rgb(31, 41, 55);
-    border-radius: 1rem;
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.8) 0%,
+      rgba(15, 23, 42, 0.4) 100%
+    );
+    backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(82, 152, 255, 0.15);
+    border-radius: 1.5rem;
+    box-shadow:
+      0 0 0 1px rgba(82, 152, 255, 0.05) inset,
+      0 8px 32px rgba(0, 0, 0, 0.4),
+      0 0 60px rgba(82, 152, 255, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(82, 152, 255, 0.1),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  .glass-card:hover::before {
+    left: 100%;
+  }
+
+  .holographic-card {
+    background: linear-gradient(
+      135deg,
+      rgba(15, 23, 42, 0.95) 0%,
+      rgba(30, 41, 59, 0.85) 100%
+    );
+    backdrop-filter: blur(40px) saturate(200%);
+    border: 1px solid transparent;
+    border-radius: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(82, 152, 255, 0.2) inset,
+      0 20px 60px rgba(0, 0, 0, 0.6),
+      0 0 100px rgba(82, 152, 255, 0.15);
+  }
+
+  .holographic-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(82, 152, 255, 0.6),
+      rgba(147, 51, 234, 0.4),
+      rgba(34, 211, 238, 0.5),
+      rgba(82, 152, 255, 0.6)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    background-size: 300% 300%;
+    animation: holographic-border 8s ease infinite;
   }
 
   .magic-gradient {
-    background: linear-gradient(
-      135deg,
-      rgba(82, 152, 255, 0.1) 0%,
-      rgba(147, 51, 234, 0.1) 50%,
-      rgba(82, 152, 255, 0.1) 100%
-    );
+    background:
+      radial-gradient(circle at 20% 50%, rgba(82, 152, 255, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(147, 51, 234, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 70%);
     background-size: 200% 200%;
-    animation: gradient-shift 10s ease infinite;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  .cyber-grid {
+    background-image:
+      linear-gradient(rgba(82, 152, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(82, 152, 255, 0.03) 1px, transparent 1px);
+    background-size: 30px 30px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+  }
+
+  .scan-line {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(82, 152, 255, 0.05) 50%,
+      transparent 100%
+    );
+    animation: scan 8s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .glow-text {
+    text-shadow:
+      0 0 10px rgba(82, 152, 255, 0.3),
+      0 0 20px rgba(82, 152, 255, 0.2);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
   }
 
   @keyframes gradient-shift {
     0%, 100% { background-position: 0% 50%; }
+    25% { background-position: 100% 50%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+  }
+
+  @keyframes holographic-border {
+    0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
+  }
+
+  @keyframes scan {
+    0%, 100% { transform: translateY(-100%); }
+    50% { transform: translateY(100%); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(82, 152, 255, 0.3),
+                  0 0 40px rgba(82, 152, 255, 0.2),
+                  0 0 60px rgba(82, 152, 255, 0.1);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(82, 152, 255, 0.5),
+                  0 0 80px rgba(82, 152, 255, 0.3),
+                  0 0 120px rgba(82, 152, 255, 0.2);
+    }
   }
 }

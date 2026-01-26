@@ -42,51 +42,118 @@ export function Step2Understand({ onSuccess }: Step2UnderstandProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      className="space-y-8"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="space-y-4"
     >
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold">
-          Empower Your Voice
-        </h1>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-          By delegating your ENS tokens to yourself, you activate your voting power in ENS governance.
-          This means you can vote on proposals that shape the future of the Ethereum Name Service.
-        </p>
+      <div className="text-center space-y-2 relative">
+        <motion.h1
+          className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.1, duration: 0.6 }}
+        >
+          <span className="text-white drop-shadow-lg inline-block">
+            Empower Your{' '}
+          </span>
+          <span className="text-white drop-shadow-[0_0_30px_rgba(82,152,255,0.5)] inline-block">
+            Voice
+          </span>
+        </motion.h1>
+        <motion.p
+          className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
+          Self-delegation converts your ENS tokens into active voting power—giving you a direct say in shaping the future of Ethereum Name Service.
+        </motion.p>
       </div>
 
       <motion.div
-        className="glass-card p-8 text-center relative overflow-hidden"
-        initial={{ scale: 0.9, opacity: 0 }}
+        className="holographic-card p-4 sm:p-5 md:p-6 text-center relative overflow-hidden"
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ delay: 0.2 }}
+        transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       >
+        {/* Animated background gradient */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-ens-blue/10 to-purple-500/10"
-          animate={{ opacity: [0.5, 0.8, 0.5] }}
-          transition={{ duration: 3, repeat: Infinity }}
+          className="absolute inset-0 bg-gradient-to-br from-ens-blue/10 via-ens-purple/10 to-ens-cyan/10"
+          animate={{
+            backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+          style={{ backgroundSize: '200% 200%' }}
         />
 
-        <div className="relative z-10">
-          <Sparkles className="w-12 h-12 text-ens-blue mx-auto mb-4" />
-          <motion.p
-            className="text-3xl font-bold"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
+        {/* Floating sparkles */}
+        <motion.div
+          className="relative z-10 space-y-6"
+        >
+          <motion.div
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ type: 'spring', stiffness: 150, delay: 0.4 }}
           >
-            Your{' '}
-            <span className="text-ens-blue">
-              {tokenCount.toLocaleString(undefined, { maximumFractionDigits: 2 })} ENS tokens
-            </span>
-            {' '}={' '}
-            <span className="text-purple-400">
-              {tokenCount.toLocaleString(undefined, { maximumFractionDigits: 2 })} votes
-            </span>
-          </motion.p>
-        </div>
+            <Sparkles className="w-12 h-12 md:w-16 md:h-16 text-ens-blue mx-auto mb-4 md:mb-6" strokeWidth={2} />
+          </motion.div>
+
+          <motion.div
+            className="text-xl sm:text-2xl md:text-3xl font-bold space-y-2 md:space-y-3"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="flex items-center justify-center gap-4 flex-wrap">
+              <span className="text-white">Your</span>
+              <motion.span
+                className="text-ens-blue mono font-bold"
+                animate={{
+                  textShadow: [
+                    '0 0 20px rgba(82, 152, 255, 0.5)',
+                    '0 0 40px rgba(82, 152, 255, 0.8)',
+                    '0 0 20px rgba(82, 152, 255, 0.5)',
+                  ],
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                {tokenCount.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+              </motion.span>
+              <span className="text-white">ENS</span>
+            </div>
+
+            <motion.div
+              className="text-3xl text-white"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              =
+            </motion.div>
+
+            <div className="flex items-center justify-center gap-4 flex-wrap">
+              <motion.span
+                className="text-ens-purple mono font-bold"
+                animate={{
+                  textShadow: [
+                    '0 0 20px rgba(147, 51, 234, 0.5)',
+                    '0 0 40px rgba(147, 51, 234, 0.8)',
+                    '0 0 20px rgba(147, 51, 234, 0.5)',
+                  ],
+                }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+              >
+                {tokenCount.toLocaleString(undefined, { maximumFractionDigits: 2 })}
+              </motion.span>
+              <span className="text-white">votes</span>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        {/* Corner accents */}
+        <div className="absolute top-4 right-4 w-12 h-12 border-t-2 border-r-2 border-ens-blue/30 rounded-tr-2xl" />
+        <div className="absolute bottom-4 left-4 w-12 h-12 border-b-2 border-l-2 border-ens-purple/30 rounded-bl-2xl" />
       </motion.div>
 
       <GasEstimate />
@@ -105,39 +172,92 @@ export function Step2Understand({ onSuccess }: Step2UnderstandProps) {
 
       <motion.button
         className="
-          w-full py-6 px-8 rounded-xl font-bold text-xl
-          bg-gradient-to-r from-ens-blue to-purple-500
-          hover:from-ens-blue/80 hover:to-purple-500/80
-          text-white shadow-2xl shadow-ens-blue/50
+          relative w-full py-4 sm:py-5 md:py-6 px-6 sm:px-8 md:px-10 rounded-xl md:rounded-2xl font-bold text-base sm:text-lg md:text-xl
+          bg-gradient-to-r from-ens-blue via-ens-purple to-ens-cyan
+          text-white shadow-2xl
           relative overflow-hidden
           disabled:opacity-50 disabled:cursor-not-allowed
+          border border-ens-blue/30
         "
+        style={{
+          backgroundSize: '200% 100%',
+          boxShadow: '0 0 40px rgba(82, 152, 255, 0.4), 0 0 80px rgba(147, 51, 234, 0.3)',
+        }}
         onClick={handleDelegate}
         disabled={isPending || isConfirming}
-        whileHover={{ scale: 1.02 }}
+        whileHover={{
+          scale: 1.02,
+          y: -4,
+          boxShadow: '0 0 60px rgba(82, 152, 255, 0.6), 0 0 120px rgba(147, 51, 234, 0.4)',
+        }}
         whileTap={{ scale: 0.98 }}
+        animate={{
+          backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
+        }}
+        transition={{
+          backgroundPosition: {
+            duration: 3,
+            repeat: Infinity,
+            ease: 'linear',
+          },
+        }}
       >
+        {/* Shimmer effect */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-          animate={{ x: ['-100%', '200%'] }}
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+          animate={{ x: ['-200%', '200%'] }}
           transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
         />
 
-        <span className="relative z-10 flex items-center justify-center gap-2">
+        {/* Glowing edges */}
+        <motion.div
+          className="absolute inset-0 rounded-2xl"
+          animate={{
+            boxShadow: [
+              'inset 0 0 20px rgba(255, 255, 255, 0.1)',
+              'inset 0 0 40px rgba(255, 255, 255, 0.2)',
+              'inset 0 0 20px rgba(255, 255, 255, 0.1)',
+            ],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+
+        <span className="relative z-10 flex items-center justify-center gap-3 mono">
           {isPending || isConfirming ? (
             <>
-              <Loader2 className="w-6 h-6 animate-spin" />
-              {isPending ? 'Confirm in wallet...' : 'Delegating...'}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              >
+                <Loader2 className="w-7 h-7" strokeWidth={3} />
+              </motion.div>
+              <span className="font-semibold">
+                {isPending ? 'Confirm in wallet...' : 'Delegating...'}
+              </span>
             </>
           ) : (
-            'Delegate to Myself'
+            <>
+              <span className="font-bold">Delegate to Myself</span>
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                →
+              </motion.span>
+            </>
           )}
         </span>
       </motion.button>
 
-      <p className="text-gray-500 text-sm text-center">
-        This transaction will be recorded on the Ethereum blockchain
-      </p>
+      <motion.p
+        className="text-gray-500 text-sm text-center flex items-center justify-center gap-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.8 }}
+      >
+        <span className="inline-block w-2 h-2 rounded-full bg-ens-blue/50 animate-pulse" />
+        One-time on-chain transaction • Gas fees apply
+      </motion.p>
     </motion.div>
   );
 }
