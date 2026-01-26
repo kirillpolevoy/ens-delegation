@@ -1,7 +1,17 @@
 # ENS Self-Delegation Wizard - Design Document
 
+> **⚠️ HISTORICAL DOCUMENT:** This design plan was the foundation for the project. The final implementation evolved significantly:
+> - Upgraded to premium DeFi aesthetic with holographic effects
+> - ENS Governor Indexer replaced Agora API for proposal data
+> - Added Uniswap buy link, OG image generation, custom domain
+> - Enhanced mobile responsiveness and copy improvements
+>
+> See README.md for final architecture and features.
+
+---
+
 **Date:** 2026-01-25
-**Status:** Approved for Implementation
+**Status:** Implemented with Enhancements
 
 ## Overview
 

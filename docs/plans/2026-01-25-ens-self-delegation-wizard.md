@@ -1,5 +1,15 @@
 # ENS Self-Delegation Wizard Implementation Plan
 
+> **⚠️ HISTORICAL DOCUMENT:** This is the original implementation plan. The final implementation differs in key areas:
+> - **Proposal Data:** Uses ENS Governor Indexer instead of Agora API
+> - **Links:** Points to dao.ens.gregskril.com instead of agora.ensdao.org
+> - **Features:** Added Uniswap integration, dynamic OG images, custom domain
+> - **Tech:** Upgraded to Next.js 16, Tailwind v4
+>
+> See README.md for current architecture.
+
+---
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Build a magical 3-step wizard that helps ENS token holders delegate their tokens to themselves with premium UI and exciting animations.
