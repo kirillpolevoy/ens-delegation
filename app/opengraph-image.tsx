@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 // Image metadata
-export const alt = 'ENS Self-Delegation - Activate Your Voting Power';
+export const alt = 'Turn Your ENS Into Votes - ENS Governance';
 export const size = {
   width: 1200,
   height: 630,
@@ -20,114 +20,167 @@ export default async function Image() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#0a0e1a',
-          backgroundImage: 'radial-gradient(circle at 25% 25%, rgba(82, 152, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 75% 75%, rgba(147, 51, 234, 0.15) 0%, transparent 50%)',
+          backgroundColor: '#0f172a',
+          backgroundImage: `
+            radial-gradient(circle at 20% 30%, rgba(82, 152, 255, 0.2) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(147, 51, 234, 0.2) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(34, 211, 238, 0.15) 0%, transparent 60%)
+          `,
           position: 'relative',
         }}
       >
-        {/* Grid pattern overlay */}
+        {/* Cyber grid pattern */}
         <div
           style={{
             position: 'absolute',
             inset: 0,
-            backgroundImage: 'linear-gradient(rgba(82, 152, 255, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(82, 152, 255, 0.05) 1px, transparent 1px)',
-            backgroundSize: '40px 40px',
+            backgroundImage: `
+              linear-gradient(rgba(82, 152, 255, 0.08) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(82, 152, 255, 0.08) 1px, transparent 1px)
+            `,
+            backgroundSize: '48px 48px',
+            opacity: 0.6,
           }}
         />
 
-        {/* Content */}
+        {/* Scan line effect */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '3px',
+            background: 'linear-gradient(90deg, transparent, rgba(82, 152, 255, 0.8), transparent)',
+            transform: 'translateY(200px)',
+          }}
+        />
+
+        {/* Content container */}
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '40px',
+            gap: '48px',
             zIndex: 1,
+            padding: '80px',
           }}
         >
-          {/* Icon */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: '160px',
-              height: '160px',
-              borderRadius: '50%',
-              background: 'radial-gradient(circle, rgba(82, 152, 255, 0.3) 0%, rgba(82, 152, 255, 0.1) 50%, transparent 100%)',
-            }}
-          >
-            <svg
-              width="80"
-              height="100"
-              viewBox="0 0 80 100"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M40 0L60 20H50V50H60L40 100L20 50H30V20H20L40 0Z"
-                fill="white"
-                stroke="#5298FF"
-                stroke-width="4"
-              />
-            </svg>
-          </div>
-
-          {/* Title */}
+          {/* Main headline */}
           <div
             style={{
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: '20px',
+              gap: '24px',
             }}
           >
             <div
               style={{
-                fontSize: 72,
+                fontSize: 84,
                 fontWeight: 800,
                 color: 'white',
                 textAlign: 'center',
-                letterSpacing: '-0.02em',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
               }}
             >
-              ENS Self-Delegation
+              Turn Your ENS
             </div>
             <div
               style={{
-                fontSize: 36,
-                fontWeight: 500,
-                color: 'rgba(255, 255, 255, 0.7)',
+                fontSize: 84,
+                fontWeight: 800,
+                background: 'linear-gradient(135deg, #5298FF 0%, #9333EA 50%, #22D3EE 100%)',
+                backgroundClip: 'text',
+                color: 'transparent',
                 textAlign: 'center',
+                letterSpacing: '-0.03em',
+                lineHeight: 1.1,
               }}
             >
-              Activate Your Voting Power
+              Into Votes
             </div>
           </div>
 
-          {/* Decorative line */}
+          {/* Subheadline */}
           <div
             style={{
-              width: '400px',
-              height: '3px',
-              background: 'linear-gradient(90deg, #5298FF 0%, #9333EA 50%, #22D3EE 100%)',
-              borderRadius: '2px',
-            }}
-          />
-
-          {/* URL */}
-          <div
-            style={{
-              fontSize: 24,
+              fontSize: 32,
               fontWeight: 500,
-              color: 'rgba(82, 152, 255, 0.8)',
-              fontFamily: 'monospace',
+              color: 'rgba(203, 213, 225, 0.9)',
+              textAlign: 'center',
+              maxWidth: '700px',
             }}
           >
-            ens-delegate.kirillpolevoy.com
+            Own ENS tokens? That means you get a vote.
+          </div>
+
+          {/* Holographic decorative bar */}
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '16px',
+              marginTop: '20px',
+            }}
+          >
+            <div
+              style={{
+                width: '120px',
+                height: '4px',
+                background: 'linear-gradient(90deg, transparent, #5298FF)',
+                borderRadius: '2px',
+              }}
+            />
+            <div
+              style={{
+                padding: '12px 32px',
+                background: 'rgba(82, 152, 255, 0.1)',
+                border: '2px solid rgba(82, 152, 255, 0.3)',
+                borderRadius: '12px',
+                fontSize: 20,
+                fontWeight: 600,
+                color: '#5298FF',
+                fontFamily: 'monospace',
+              }}
+            >
+              ENS Governance
+            </div>
+            <div
+              style={{
+                width: '120px',
+                height: '4px',
+                background: 'linear-gradient(90deg, #22D3EE, transparent)',
+                borderRadius: '2px',
+              }}
+            />
           </div>
         </div>
+
+        {/* Corner accents */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '200px',
+            height: '200px',
+            background: 'radial-gradient(circle at 0% 0%, rgba(82, 152, 255, 0.3), transparent 70%)',
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            width: '200px',
+            height: '200px',
+            background: 'radial-gradient(circle at 100% 100%, rgba(147, 51, 234, 0.3), transparent 70%)',
+          }}
+        />
       </div>
     ),
     {
