@@ -6,10 +6,13 @@ import { StepIndicator } from '@/components/StepIndicator';
 import { Step1Connect } from '@/components/WizardSteps/Step1Connect';
 import { Step2Understand } from '@/components/WizardSteps/Step2Understand';
 import { Step3Done } from '@/components/WizardSteps/Step3Done';
+import { FAQ } from '@/components/FAQ';
+import { Toast } from '@/components/Toast';
 
 export default function Home() {
   const [currentStep, setCurrentStep] = useState(1);
   const [txHash, setTxHash] = useState<string>('');
+  const [showDisconnectToast, setShowDisconnectToast] = useState(false);
 
   const handleStep1Continue = () => {
     setCurrentStep(2);
@@ -22,6 +25,10 @@ export default function Home() {
   const handleStep2Success = (hash: string) => {
     setTxHash(hash);
     setCurrentStep(3);
+  };
+
+  const handleStep2Back = () => {
+    setCurrentStep(1);
   };
 
   return (
@@ -99,15 +106,26 @@ export default function Home() {
                 key="step1"
                 onContinue={handleStep1Continue}
                 onAlreadyDelegated={handleAlreadyDelegated}
+                onDisconnect={() => setShowDisconnectToast(true)}
               />
             )}
             {currentStep === 2 && (
-              <Step2Understand key="step2" onSuccess={handleStep2Success} />
+              <Step2Understand key="step2" onSuccess={handleStep2Success} onBack={handleStep2Back} />
             )}
             {currentStep === 3 && (
               <Step3Done key="step3" txHash={txHash} />
             )}
           </AnimatePresence>
+        </motion.div>
+
+        {/* FAQ Section */}
+        <motion.div
+          className="mt-4 md:mt-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          <FAQ />
         </motion.div>
 
         {/* Footer */}
@@ -139,6 +157,13 @@ export default function Home() {
           />
         </motion.footer>
       </div>
+
+      {/* Global Toast for wallet disconnect */}
+      <Toast
+        message="Wallet disconnected successfully"
+        isVisible={showDisconnectToast}
+        onClose={() => setShowDisconnectToast(false)}
+      />
     </main>
   );
 }

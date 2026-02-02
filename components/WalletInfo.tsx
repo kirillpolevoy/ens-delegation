@@ -5,7 +5,7 @@ import { useAccount, useBalance, useReadContract } from 'wagmi';
 import { useENSBalance } from '@/hooks/useENSBalance';
 import { ensTokenConfig } from '@/lib/contracts/ens';
 import { motion } from 'framer-motion';
-import { Wallet, CheckCircle, XCircle } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { formatEther } from 'viem';
 
 export function WalletInfo() {
@@ -70,7 +70,7 @@ export function WalletInfo() {
         </div>
       </motion.div>
 
-      {/* Delegation Status */}
+      {/* Status */}
       <motion.div
         className="glass-card p-3 sm:p-3.5 md:p-4 relative group"
         initial={mounted ? { opacity: 0, x: -20 } : false}
@@ -79,7 +79,7 @@ export function WalletInfo() {
         whileHover={{ scale: 1.01 }}
       >
         <div className="flex items-center justify-between">
-          <span className="text-gray-300 text-sm font-medium tracking-wider uppercase">Delegation Status</span>
+          <span className="text-gray-300 text-sm font-medium tracking-wider uppercase">Status</span>
           {delegateLoading ? (
             <div className="h-8 w-48 bg-space-700/50 animate-pulse rounded-xl" />
           ) : (
@@ -98,19 +98,18 @@ export function WalletInfo() {
                   >
                     <CheckCircle className="w-6 h-6 text-emerald-400" strokeWidth={2.5} />
                   </motion.div>
-                  <span className="text-emerald-400 font-semibold text-lg">Self-delegated</span>
-                </>
-              ) : isDelegated ? (
-                <>
-                  <Wallet className="w-6 h-6 text-amber-400" strokeWidth={2.5} />
-                  <span className="text-amber-400 font-semibold mono text-sm">
-                    {delegateAddress?.slice(0, 6)}...{delegateAddress?.slice(-4)}
-                  </span>
+                  <span className="text-emerald-400 font-semibold text-lg">Active</span>
                 </>
               ) : (
                 <>
-                  <XCircle className="w-6 h-6 text-gray-500" strokeWidth={2.5} />
-                  <span className="text-gray-500 font-medium">Not delegated</span>
+                  <motion.div
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 200, delay: 0.4 }}
+                  >
+                    <AlertCircle className="w-6 h-6 text-amber-400" strokeWidth={2.5} />
+                  </motion.div>
+                  <span className="text-amber-400 font-semibold text-lg">Inactive</span>
                 </>
               )}
             </motion.div>
@@ -127,50 +126,9 @@ export function WalletInfo() {
             transition={{ duration: 2, repeat: Infinity }}
           />
         )}
-      </motion.div>
-
-      {/* ETH Balance */}
-      <motion.div
-        className="glass-card p-3 sm:p-3.5 md:p-4 relative group"
-        initial={mounted ? { opacity: 0, x: -20 } : false}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-        whileHover={{ scale: 1.01 }}
-      >
-        <div className="flex items-center justify-between">
-          <span className="text-gray-300 text-sm font-medium tracking-wider uppercase">ETH for Gas</span>
-          {ethLoading ? (
-            <div className="h-8 w-36 bg-space-700/50 animate-pulse rounded-xl" />
-          ) : (
-            <motion.div
-              className="flex items-center gap-3"
-              initial={mounted ? { opacity: 0, x: 20 } : false}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 200, delay: 0.5 }}
-              >
-                {hasSufficientGas ? (
-                  <CheckCircle className="w-6 h-6 text-emerald-400" strokeWidth={2.5} />
-                ) : (
-                  <XCircle className="w-6 h-6 text-rose-400" strokeWidth={2.5} />
-                )}
-              </motion.div>
-              <span className={`font-semibold text-lg mono ${hasSufficientGas ? 'text-emerald-400' : 'text-rose-400'}`}>
-                {parseFloat(ethBalanceFormatted).toFixed(4)}
-                <span className="text-sm sm:text-base ml-1 opacity-90">ETH</span>
-              </span>
-            </motion.div>
-          )}
-        </div>
-
-        {/* Gas status indicator */}
-        {!hasSufficientGas && (
+        {!isSelfDelegated && (
           <motion.div
-            className="absolute -inset-0.5 bg-gradient-to-r from-rose-500/20 to-red-500/20 rounded-2xl blur-xl"
+            className="absolute -inset-0.5 bg-gradient-to-r from-amber-500/20 to-yellow-500/20 rounded-2xl blur-xl"
             animate={{
               opacity: [0.3, 0.6, 0.3],
             }}
@@ -178,6 +136,58 @@ export function WalletInfo() {
           />
         )}
       </motion.div>
+
+      {/* ETH Balance - Only show if not self-delegated */}
+      {!isSelfDelegated && (
+        <motion.div
+          className="glass-card p-3 sm:p-3.5 md:p-4 relative group"
+          initial={mounted ? { opacity: 0, x: -20 } : false}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: 0.3, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          whileHover={{ scale: 1.01 }}
+        >
+          <div className="flex items-center justify-between">
+            <span className="text-gray-300 text-sm font-medium tracking-wider uppercase">ETH for Gas</span>
+            {ethLoading ? (
+              <div className="h-8 w-36 bg-space-700/50 animate-pulse rounded-xl" />
+            ) : (
+              <motion.div
+                className="flex items-center gap-3"
+                initial={mounted ? { opacity: 0, x: 20 } : false}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 200, delay: 0.5 }}
+                >
+                  {hasSufficientGas ? (
+                    <CheckCircle className="w-6 h-6 text-emerald-400" strokeWidth={2.5} />
+                  ) : (
+                    <XCircle className="w-6 h-6 text-rose-400" strokeWidth={2.5} />
+                  )}
+                </motion.div>
+                <span className={`font-semibold text-lg mono ${hasSufficientGas ? 'text-emerald-400' : 'text-rose-400'}`}>
+                  {parseFloat(ethBalanceFormatted).toFixed(4)}
+                  <span className="text-sm sm:text-base ml-1 opacity-90">ETH</span>
+                </span>
+              </motion.div>
+            )}
+          </div>
+
+          {/* Gas status indicator */}
+          {!hasSufficientGas && (
+            <motion.div
+              className="absolute -inset-0.5 bg-gradient-to-r from-rose-500/20 to-red-500/20 rounded-2xl blur-xl"
+              animate={{
+                opacity: [0.3, 0.6, 0.3],
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          )}
+        </motion.div>
+      )}
     </div>
   );
 }

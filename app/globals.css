@@ -82,6 +82,7 @@
     mask-composite: exclude;
     background-size: 300% 300%;
     animation: holographic-border 8s ease infinite;
+    pointer-events: none;
   }
 
   .magic-gradient {

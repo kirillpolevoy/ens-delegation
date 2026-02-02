@@ -78,7 +78,7 @@ export function ProposalCount() {
                 {count}
               </motion.span>
               <span className="text-white text-sm sm:text-base md:text-lg font-medium flex items-center gap-2">
-                active proposal{count !== 1 ? 's' : ''}
+                queued proposal{count !== 1 ? 's' : ''}
                 <motion.span
                   className="inline-flex items-center gap-1"
                   animate={{

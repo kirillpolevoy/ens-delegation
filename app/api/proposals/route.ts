@@ -10,21 +10,20 @@ export async function GET() {
 
     if (!response.ok) {
       // If the indexer is down, return current known count
-      return NextResponse.json({ count: 1 });
+      return NextResponse.json({ count: 2 });
     }
 
     const proposals = await response.json();
 
-    // Count active proposals (not executed, not canceled, and within voting period)
+    // Count queued proposals (voting ended, passed, not executed, not canceled)
     const now = Math.floor(Date.now() / 1000);
-    const activeCount = proposals.filter((p: any) => {
+    const queuedCount = proposals.filter((p: any) => {
       return !p.executedAtTimestamp &&
              !p.canceledAtTimestamp &&
-             p.startTimestamp <= now &&
-             p.endTimestamp >= now;
+             p.endTimestamp < now;  // Voting has ended
     }).length;
 
-    return NextResponse.json({ count: activeCount });
+    return NextResponse.json({ count: queuedCount });
   } catch (error) {
     console.error('Error fetching proposals:', error);
     // Fallback to known count if API fails

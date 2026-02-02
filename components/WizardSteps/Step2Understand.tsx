@@ -10,9 +10,10 @@ import { useEffect } from 'react';
 
 interface Step2UnderstandProps {
   onSuccess: (txHash: string) => void;
+  onBack?: () => void;
 }
 
-export function Step2Understand({ onSuccess }: Step2UnderstandProps) {
+export function Step2Understand({ onSuccess, onBack }: Step2UnderstandProps) {
   const { address } = useAccount();
   const { formatted: ensBalance } = useENSBalance(address);
 
@@ -48,28 +49,28 @@ export function Step2Understand({ onSuccess }: Step2UnderstandProps) {
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className="space-y-4"
     >
-      <div className="text-center space-y-2 relative">
+      <div className="text-center space-y-3 relative">
         <motion.h1
-          className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight"
+          className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white drop-shadow-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
         >
-          <span className="text-white drop-shadow-lg inline-block">
-            Empower Your{' '}
-          </span>
-          <span className="text-white drop-shadow-[0_0_30px_rgba(82,152,255,0.5)] inline-block">
-            Voice
-          </span>
+          Ready to activate
         </motion.h1>
-        <motion.p
-          className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4"
+        <motion.div
+          className="text-gray-300 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4 space-y-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Self-delegation converts your ENS tokens into active voting power—giving you a direct say in shaping the future of Ethereum Name Service.
-        </motion.p>
+          <p>
+            Your <span className="text-ens-blue font-semibold">{tokenCount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> ENS becomes <span className="text-ens-purple font-semibold">{tokenCount.toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> votes. You'll be able to vote on proposals directly. This is a one-time setup.
+          </p>
+          <p className="text-gray-400 text-sm">
+            You can change this anytime.
+          </p>
+        </motion.div>
       </div>
 
       <motion.div
@@ -232,12 +233,12 @@ export function Step2Understand({ onSuccess }: Step2UnderstandProps) {
                 <Loader2 className="w-7 h-7" strokeWidth={3} />
               </motion.div>
               <span className="font-semibold">
-                {isPending ? 'Confirm in wallet...' : 'Delegating...'}
+                {isPending ? 'Confirm in wallet...' : 'Activating...'}
               </span>
             </>
           ) : (
             <>
-              <span className="font-bold">Delegate to Myself</span>
+              <span className="font-bold">Confirm</span>
               <motion.span
                 animate={{ x: [0, 5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
@@ -249,15 +250,17 @@ export function Step2Understand({ onSuccess }: Step2UnderstandProps) {
         </span>
       </motion.button>
 
-      <motion.p
-        className="text-gray-500 text-sm text-center flex items-center justify-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-      >
-        <span className="inline-block w-2 h-2 rounded-full bg-ens-blue/50 animate-pulse" />
-        One-time on-chain transaction • Gas fees apply
-      </motion.p>
+      {onBack && (
+        <motion.button
+          onClick={onBack}
+          className="text-gray-400 hover:text-white text-sm text-center transition-colors"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          ← Back
+        </motion.button>
+      )}
     </motion.div>
   );
 }
