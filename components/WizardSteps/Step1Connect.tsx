@@ -145,11 +145,11 @@ export function Step1Connect({ onContinue, onAlreadyDelegated, onDisconnect }: S
               // Already delegated state
               <>
                 <motion.div
-                  className="glass-card p-4 sm:p-5 text-center"
+                  className="glass-card p-3 sm:p-4 text-center"
                   initial={mounted ? { opacity: 0, y: 10 } : false}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <p className="text-gray-200 text-base sm:text-lg font-medium">
+                  <p className="text-gray-200 text-sm sm:text-base font-medium">
                     You're all set. Go make your voice heard.
                   </p>
                 </motion.div>
@@ -159,7 +159,7 @@ export function Step1Connect({ onContinue, onAlreadyDelegated, onDisconnect }: S
                   target="_blank"
                   rel="noopener noreferrer"
                   className="
-                    relative w-full py-4 sm:py-5 px-6 sm:px-8 md:px-10 rounded-xl md:rounded-2xl font-bold text-base sm:text-lg
+                    relative w-full py-3.5 sm:py-4 px-6 sm:px-8 rounded-xl font-bold text-base
                     bg-gradient-to-r from-emerald-500 to-green-600 text-white shadow-2xl shadow-green-500/50
                     transition-all duration-500 overflow-hidden flex items-center justify-center gap-2
                   "
@@ -185,11 +185,11 @@ export function Step1Connect({ onContinue, onAlreadyDelegated, onDisconnect }: S
               <>
                 <ProposalCount />
                 <motion.div
-                  className="glass-card p-4 sm:p-5 text-center space-y-4"
+                  className="glass-card p-3 sm:p-4 text-center space-y-3"
                   initial={mounted ? { opacity: 0, y: 10 } : false}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <p className="text-gray-200 text-base sm:text-lg font-medium">
+                  <p className="text-gray-200 text-sm sm:text-base font-medium leading-relaxed">
                     You'll need ENS tokens to vote. There {proposalCount === 1 ? 'is' : 'are'} {proposalCount || 0} queued {proposalCount === 1 ? 'proposal' : 'proposals'} waiting to be executed.
                   </p>
 
@@ -197,7 +197,7 @@ export function Step1Connect({ onContinue, onAlreadyDelegated, onDisconnect }: S
                     href="https://app.uniswap.org/swap?inputCurrency=ETH&outputCurrency=0xC18360217D8F7Ab5e7c516566761Ea12Ce7F9D72"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-semibold text-sm transition-colors"
+                    className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-lg bg-pink-600 hover:bg-pink-500 text-white font-semibold text-sm transition-colors"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -207,7 +207,7 @@ export function Step1Connect({ onContinue, onAlreadyDelegated, onDisconnect }: S
 
                   <button
                     disabled
-                    className="w-full py-3 px-4 rounded-lg bg-space-700/50 text-gray-500 cursor-not-allowed border border-space-700 font-semibold text-sm"
+                    className="w-full py-2.5 px-4 rounded-lg bg-space-700/50 text-gray-500 cursor-not-allowed border border-space-700 font-semibold text-sm"
                   >
                     Activate My Votes
                   </button>
@@ -218,29 +218,29 @@ export function Step1Connect({ onContinue, onAlreadyDelegated, onDisconnect }: S
               <>
                 {!hasSufficientGas && (
                   <motion.div
-                    className="glass-card p-4 border-yellow-500/50"
+                    className="glass-card p-3 border-yellow-500/50"
                     initial={mounted ? { opacity: 0, y: 10 } : false}
                     animate={{ opacity: 1, y: 0 }}
                   >
-                    <p className="text-yellow-400 text-center text-sm sm:text-base">
+                    <p className="text-yellow-400 text-center text-sm">
                       Add at least 0.001 ETH to your wallet to cover transaction fees.
                     </p>
                   </motion.div>
                 )}
 
                 <motion.div
-                  className="glass-card p-4 sm:p-5 text-center"
+                  className="glass-card p-3 sm:p-4 text-center"
                   initial={mounted ? { opacity: 0, y: 10 } : false}
                   animate={{ opacity: 1, y: 0 }}
                 >
-                  <p className="text-gray-200 text-base sm:text-lg font-medium">
+                  <p className="text-gray-200 text-sm sm:text-base font-medium leading-relaxed">
                     You have <span className="text-ens-blue font-bold">{parseFloat(ensBalanceFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> ENS. That's <span className="text-ens-purple font-bold">{parseFloat(ensBalanceFormatted).toLocaleString(undefined, { maximumFractionDigits: 2 })}</span> votes waiting to be activated.
                   </p>
                 </motion.div>
 
                 <motion.button
                   className={`
-                    relative w-full py-4 sm:py-5 px-6 sm:px-8 md:px-10 rounded-xl md:rounded-2xl font-bold text-base sm:text-lg
+                    relative w-full py-3.5 sm:py-4 px-6 sm:px-8 rounded-xl font-bold text-base
                     transition-all duration-500 overflow-hidden
                     ${canActivate
                       ? 'bg-gradient-to-r from-ens-blue to-ens-purple text-white shadow-2xl shadow-ens-blue/50'

@@ -20,7 +20,7 @@ export function ProposalCount() {
       href="https://dao.ens.gregskril.com/"
       target="_blank"
       rel="noopener noreferrer"
-      className="glass-card p-3 sm:p-3.5 md:p-4 relative group overflow-hidden block cursor-pointer"
+      className="glass-card p-2.5 sm:p-3 relative group overflow-hidden block cursor-pointer"
       initial={mounted ? { opacity: 0, scale: 0.95 } : false}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -34,14 +34,14 @@ export function ProposalCount() {
         }} />
       </div>
 
-      <div className="flex items-center gap-3 sm:gap-4 md:gap-6 relative z-10">
+      <div className="flex items-center gap-3 sm:gap-4 relative z-10">
         <motion.div
-          className="p-3 md:p-4 bg-gradient-to-br from-ens-blue/20 to-ens-purple/10 rounded-xl md:rounded-2xl relative"
+          className="p-2.5 bg-gradient-to-br from-ens-blue/20 to-ens-purple/10 rounded-xl relative shrink-0"
           initial={{ rotate: -10, scale: 0 }}
           animate={{ rotate: 0, scale: 1 }}
           transition={{ type: 'spring', stiffness: 200, delay: 0.6 }}
         >
-          <Vote className="w-5 h-5 md:w-7 md:h-7 text-ens-blue" strokeWidth={2.5} />
+          <Vote className="w-5 h-5 text-ens-blue" strokeWidth={2.5} />
 
           {/* Icon glow */}
           <motion.div
@@ -54,20 +54,20 @@ export function ProposalCount() {
           />
         </motion.div>
 
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           {isLoading ? (
-            <div className="h-8 w-56 bg-space-700/50 animate-pulse rounded-xl" />
+            <div className="h-7 w-48 bg-space-700/50 animate-pulse rounded-lg" />
           ) : error ? (
-            <span className="text-gray-500 text-sm font-medium">{error}</span>
+            <span className="text-gray-500 text-xs font-medium">{error}</span>
           ) : (
             <motion.div
               initial={mounted ? { x: -20, opacity: 0 } : false}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}
-              className="flex items-baseline gap-3"
+              className="flex items-baseline gap-2"
             >
               <motion.span
-                className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mono"
+                className="text-2xl sm:text-3xl font-bold text-white mono"
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', stiffness: 150, delay: 0.8 }}
@@ -77,16 +77,16 @@ export function ProposalCount() {
               >
                 {count}
               </motion.span>
-              <span className="text-white text-sm sm:text-base md:text-lg font-medium flex items-center gap-2">
+              <span className="text-white text-sm sm:text-base font-medium flex items-center gap-1.5">
                 queued proposal{count !== 1 ? 's' : ''}
                 <motion.span
-                  className="inline-flex items-center gap-1"
+                  className="inline-flex items-center"
                   animate={{
                     opacity: [0.5, 1, 0.5],
                   }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <ExternalLink className="w-3.5 h-3.5" />
                 </motion.span>
               </span>
             </motion.div>
