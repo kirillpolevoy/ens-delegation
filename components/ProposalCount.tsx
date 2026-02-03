@@ -66,7 +66,7 @@ export function ProposalCount() {
               transition={{ delay: 0.7, duration: 0.5 }}
               className="flex items-baseline gap-2"
             >
-              {count > 0 ? (
+              {count !== null && count > 0 ? (
                 <>
                   <motion.span
                     className="text-2xl sm:text-3xl font-bold text-white mono"
