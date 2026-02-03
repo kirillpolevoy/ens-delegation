@@ -190,7 +190,7 @@ export function Step1Connect({ onContinue, onAlreadyDelegated, onDisconnect }: S
                   animate={{ opacity: 1, y: 0 }}
                 >
                   <p className="text-gray-200 text-sm sm:text-base font-medium leading-relaxed">
-                    {proposalCount > 0
+                    {proposalCount !== null && proposalCount > 0
                       ? `You'll need ENS tokens to vote. There ${proposalCount === 1 ? 'is' : 'are'} ${proposalCount} active ${proposalCount === 1 ? 'proposal' : 'proposals'} right now.`
                       : "You'll need ENS tokens to participate in ENS governance."}
                   </p>
