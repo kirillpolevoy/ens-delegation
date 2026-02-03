@@ -66,29 +66,46 @@ export function ProposalCount() {
               transition={{ delay: 0.7, duration: 0.5 }}
               className="flex items-baseline gap-2"
             >
-              <motion.span
-                className="text-2xl sm:text-3xl font-bold text-white mono"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ type: 'spring', stiffness: 150, delay: 0.8 }}
-                style={{
-                  textShadow: '0 0 20px rgba(82, 152, 255, 0.6)'
-                }}
-              >
-                {count}
-              </motion.span>
-              <span className="text-white text-sm sm:text-base font-medium flex items-center gap-1.5">
-                queued proposal{count !== 1 ? 's' : ''}
-                <motion.span
-                  className="inline-flex items-center"
-                  animate={{
-                    opacity: [0.5, 1, 0.5],
-                  }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </motion.span>
-              </span>
+              {count > 0 ? (
+                <>
+                  <motion.span
+                    className="text-2xl sm:text-3xl font-bold text-white mono"
+                    initial={{ scale: 0 }}
+                    animate={{ scale: 1 }}
+                    transition={{ type: 'spring', stiffness: 150, delay: 0.8 }}
+                    style={{
+                      textShadow: '0 0 20px rgba(82, 152, 255, 0.6)'
+                    }}
+                  >
+                    {count}
+                  </motion.span>
+                  <span className="text-white text-sm sm:text-base font-medium flex items-center gap-1.5">
+                    active proposal{count !== 1 ? 's' : ''}
+                    <motion.span
+                      className="inline-flex items-center"
+                      animate={{
+                        opacity: [0.5, 1, 0.5],
+                      }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                    </motion.span>
+                  </span>
+                </>
+              ) : (
+                <span className="text-white text-sm sm:text-base font-medium flex items-center gap-1.5">
+                  See proposals
+                  <motion.span
+                    className="inline-flex items-center"
+                    animate={{
+                      opacity: [0.5, 1, 0.5],
+                    }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </motion.span>
+                </span>
+              )}
             </motion.div>
           )}
         </div>

@@ -19,7 +19,7 @@ export function useActiveProposals() {
         }
 
         const data = await response.json();
-        setCount(data?.count || 0);
+        setCount(data?.activeCount || 0);
         setError(null);
       } catch (err) {
         console.error('Error fetching proposals:', err);

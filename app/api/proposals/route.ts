@@ -9,24 +9,25 @@ export async function GET() {
     });
 
     if (!response.ok) {
-      // If the indexer is down, return current known count
-      return NextResponse.json({ count: 2 });
+      // If the indexer is down, return 0 active proposals
+      return NextResponse.json({ activeCount: 0 });
     }
 
     const proposals = await response.json();
 
-    // Count queued proposals (voting ended, passed, not executed, not canceled)
+    // Count active proposals (voting is currently happening)
     const now = Math.floor(Date.now() / 1000);
-    const queuedCount = proposals.filter((p: any) => {
+    const activeCount = proposals.filter((p: any) => {
       return !p.executedAtTimestamp &&
              !p.canceledAtTimestamp &&
-             p.endTimestamp < now;  // Voting has ended
+             now >= p.startTimestamp &&
+             now < p.endTimestamp;  // Voting is active
     }).length;
 
-    return NextResponse.json({ count: queuedCount });
+    return NextResponse.json({ activeCount });
   } catch (error) {
     console.error('Error fetching proposals:', error);
-    // Fallback to known count if API fails
-    return NextResponse.json({ count: 1 }, { status: 200 });
+    // Fallback to 0 active proposals if API fails
+    return NextResponse.json({ activeCount: 0 }, { status: 200 });
   }
 }
